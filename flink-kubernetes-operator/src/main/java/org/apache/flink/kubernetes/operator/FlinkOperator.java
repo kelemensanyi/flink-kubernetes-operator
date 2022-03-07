@@ -21,9 +21,11 @@ import org.apache.flink.kubernetes.operator.config.DefaultConfig;
 import org.apache.flink.kubernetes.operator.config.FlinkOperatorConfiguration;
 import org.apache.flink.kubernetes.operator.controller.FlinkControllerConfig;
 import org.apache.flink.kubernetes.operator.controller.FlinkDeploymentController;
+import org.apache.flink.kubernetes.operator.crd.FlinkDeployment;
 import org.apache.flink.kubernetes.operator.metrics.OperatorMetricUtils;
 import org.apache.flink.kubernetes.operator.observer.Observer;
 import org.apache.flink.kubernetes.operator.reconciler.ReconcilerFactory;
+import org.apache.flink.kubernetes.operator.reconciler.caching.CachingReconciler;
 import org.apache.flink.kubernetes.operator.service.FlinkService;
 import org.apache.flink.kubernetes.operator.utils.FlinkUtils;
 import org.apache.flink.kubernetes.operator.validation.DefaultDeploymentValidator;
@@ -31,6 +33,7 @@ import org.apache.flink.kubernetes.operator.validation.FlinkDeploymentValidator;
 
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.javaoperatorsdk.operator.Operator;
+import io.javaoperatorsdk.operator.api.reconciler.Reconciler;
 import io.javaoperatorsdk.operator.config.runtime.DefaultConfigurationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,7 +81,9 @@ public class FlinkOperator {
         controller.setControllerConfig(controllerConfig);
         controllerConfig.setConfigurationService(configurationService);
 
-        operator.register(controller, controllerConfig);
+        Reconciler<FlinkDeployment> cachingReconciler = new CachingReconciler<>(controller);
+
+        operator.register(cachingReconciler, controllerConfig);
         operator.installShutdownHook();
         operator.start();
     }

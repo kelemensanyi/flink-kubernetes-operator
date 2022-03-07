@@ -23,12 +23,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** Flink job spec. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JobSpec {
+public class JobSpec implements Serializable {
     private String jarURI;
     private int parallelism;
     private String entryClass;

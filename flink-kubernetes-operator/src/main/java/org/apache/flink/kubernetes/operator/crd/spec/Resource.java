@@ -21,11 +21,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** Resource spec. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Resource {
+public class Resource implements Serializable {
     private double cpu;
     // 1024m, 1g
     private String memory;

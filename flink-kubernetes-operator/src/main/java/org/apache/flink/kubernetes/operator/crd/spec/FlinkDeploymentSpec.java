@@ -23,6 +23,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /** Spec that describes a Flink application deployment. */
@@ -30,7 +31,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FlinkDeploymentSpec {
+public class FlinkDeploymentSpec implements Serializable {
     private String image;
     private String imagePullPolicy;
     private String serviceAccount;

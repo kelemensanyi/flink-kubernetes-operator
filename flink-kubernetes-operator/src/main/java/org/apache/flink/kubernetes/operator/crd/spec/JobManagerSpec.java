@@ -22,11 +22,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** JobManager spec. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobManagerSpec {
+public class JobManagerSpec implements Serializable {
     private Resource resource;
     private int replicas;
     private Pod podTemplate;

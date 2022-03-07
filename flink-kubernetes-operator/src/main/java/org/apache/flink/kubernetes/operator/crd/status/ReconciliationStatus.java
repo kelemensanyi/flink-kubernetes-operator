@@ -24,12 +24,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** Status of the Flink deployment reconciliation flow. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ReconciliationStatus {
+public class ReconciliationStatus implements Serializable {
     private boolean success;
     private String error;
     private FlinkDeploymentSpec lastReconciledSpec;

@@ -23,11 +23,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** Current status of the Flink deployment. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FlinkDeploymentStatus {
+public class FlinkDeploymentStatus implements Serializable {
     private JobStatus jobStatus = new JobStatus();
     private JobManagerDeploymentStatus jobManagerDeploymentStatus =
             JobManagerDeploymentStatus.MISSING;

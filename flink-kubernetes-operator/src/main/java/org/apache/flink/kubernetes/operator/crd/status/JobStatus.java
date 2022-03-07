@@ -22,12 +22,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /** Status of an individual job within the Flink deployment. */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JobStatus {
+public class JobStatus implements Serializable {
     private String jobName;
     private String jobId;
     private String state;
